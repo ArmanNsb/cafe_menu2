@@ -82,6 +82,7 @@ body {
     
     /* یکم پدینگ پایین میدیم که پترن نچسبه به آخرین آیتم منو */
     padding-bottom: 0; 
+	scroll-behavior: smooth;
 }
 
 /* =========================================
@@ -158,6 +159,18 @@ body {
 
 .category-header:active {
     background-color: rgba(255, 255, 255, 0.05);
+}
+
+.category-header {
+    transition:
+        transform 0.18s ease,
+        filter 0.18s ease;
+}
+
+/* لمس نرم اما قابل حس */
+.category-header.is-pressing {
+    transform: scale(0.97) translateY(2px);
+    filter: brightness(1.12);
 }
 
 .cat-title-fa {
@@ -274,7 +287,7 @@ transition-delay: 0s;}
 
 .price {
     font-family: var(--font-en);
-    font-weight: 600;
+    font-weight: 700;
     font-size: 1.2rem;
     color: var(--text-dark);
     order: 2; /* قیمت سمت چپ */
@@ -316,7 +329,7 @@ transition-delay: 0s;}
 	font-size: 1.2rem;
     gap: 5px;
     font-family: var(--font-en);
-    font-weight: 600;
+    font-weight: 700;
     order: 2;
     min-width: 70px;
     justify-content: flex-end;
@@ -497,3 +510,74 @@ transition-delay: 0s;}
 .menu-container {
     padding: 0 50px 40px 50px; /* پدینگ پایین رو معقول کردیم */
 }	
+
+.item-icon-65 {
+    width: 42px; /* عرض حدود 40 پیکسل */
+    height: auto;
+    vertical-align: middle; /* تراز شدن با خط متن */
+    margin: 0 px; /* کمی فاصله از کلمات قبل و بعد */
+    position: relative;
+    top: -1px; /* کمی شیفت به بالا برای تراز چشمی دقیق‌تر */
+}
+
+.vegan-icon {
+    width: 80px;
+    height: auto;
+    vertical-align: middle;
+    position: relative;
+    
+    /* تنظیم موقعیت و اورلپ (Overlap) */
+    top: 5px; 
+    margin-right: 4px; /* کمی میکشه سمت راست که روی متن قبلی بیفته */
+    
+    /* چرخش ۵ درجه */
+    transform: rotate(5deg);
+    
+    /* دراپ شادو برای اینکه مثل جسم واقعی دیده بشه */
+    /* filter: drop-shadow(x-offset y-offset blur color) */
+    filter: drop-shadow(17px 7px 15px rgba(32, 77, 42, 0.4));
+    
+    z-index: 1; /* میاد روی متن */
+}
+
+/* آیتم‌ها قبل از باز شدن */
+.menu-item,
+.category-pattern,
+.price-labels,
+.cat-description {
+    opacity: 0;
+    transform: translateY(10px);
+    transition:
+        opacity 0.35s ease,
+        transform 0.35s ease;
+}
+
+/* وقتی آکاردئون active شد */
+.menu-category.active .menu-item,
+.menu-category.active .category-pattern,
+.menu-category.active .price-labels,
+.menu-category.active .cat-description {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* =========================================
+   Visible Grain Overlay (Cafe Paper Feel)
+   ========================================= */
+
+.app-container::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+
+    pointer-events: none;
+    z-index: 999;
+
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.35'/%3E%3C/svg%3E");
+
+    background-repeat: repeat;
+    background-size: 160px 160px;
+
+    opacity: 0.7;
+    mix-blend-mode: overlay;
+}
